@@ -1,0 +1,59 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.4'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id "com.ewerk.gradle.plugins.querydsl" version '1.0.10'
+}
+
+group 'Pegas'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+wrapper{
+    gradleVersion("8.6")
+}
+
+configurations {
+    querydsl.extendsFrom implementation, compileOnly, runtimeOnly
+}
+
+sourceCompatibility = '17'
+targetCompatibility = '17'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'com.h2database:h2'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.4'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'com.querydsl:querydsl-jpa:5.1.0:jakarta'
+    implementation 'com.querydsl:querydsl-core:5.1.0'
+    annotationProcessor 'com.querydsl:querydsl-apt'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+querydsl {
+    jpa=true
+    library = 'com.querydsl:querydsl-apt:5.1.0:jakarta'
+    querydslSourcesDir = "$buildDir/generated/sources/annotationProcessor/java/main"
+}
+
+initQuerydslSourcesDir.dependsOn clean
+
+compileQuerydsl{
+    options.annotationProcessorPath = configurations.querydsl
+}
