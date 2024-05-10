@@ -1,6 +1,7 @@
 package Pegas.dto;
 
 import lombok.Value;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 

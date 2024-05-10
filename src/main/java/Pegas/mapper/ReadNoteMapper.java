@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component;
 public class ReadNoteMapper implements Mapper<Note, ReadNoteDto>{
     @Override
     public ReadNoteDto map(Note note) {
-        return new ReadNoteDto(note.getId(), note.getTitle(), note.getBody(), note.getCreatedAt(), note.getUpdateAt());
+        return new ReadNoteDto(note.getId(), note.getTitle(), note.getInfo(), note.getCreatedAt(), note.getUpdateAt());
     }
 }

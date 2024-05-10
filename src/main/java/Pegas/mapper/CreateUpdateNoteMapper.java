@@ -4,13 +4,16 @@ import Pegas.dto.CreateUpdateNoteDto;
 import Pegas.entity.Note;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Component
 public class CreateUpdateNoteMapper implements Mapper<CreateUpdateNoteDto, Note>{
     @Override
     public Note map(CreateUpdateNoteDto create) {
         return Note.builder()
                 .title(create.getTitle())
-                .body(create.getBody())
+                .info(create.getBody())
                 .createdAt(create.getCreatedAt())
                 .updateAt(create.getUpdateAt())
                 .build();
@@ -19,9 +22,9 @@ public class CreateUpdateNoteMapper implements Mapper<CreateUpdateNoteDto, Note>
     @Override
     public Note map(CreateUpdateNoteDto update, Note note) {
         note.setTitle(update.getTitle());
-        note.setBody(update.getBody());
-        note.setCreatedAt(update.getCreatedAt());
-        note.setUpdateAt(update.getUpdateAt());
+        note.setInfo(update.getBody());
+        note.setCreatedAt(note.getCreatedAt());
+        note.setUpdateAt(LocalDateTime.parse(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))));
         return note;
     }
 }
