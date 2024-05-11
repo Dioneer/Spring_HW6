@@ -1,17 +1,22 @@
 package Pegas.service;
 
 import Pegas.dto.CreateUpdateNoteDto;
+import Pegas.dto.FilterNoteDto;
+import Pegas.dto.QPredicateNote;
 import Pegas.dto.ReadNoteDto;
 import Pegas.entity.Note;
 import Pegas.mapper.CreateUpdateNoteMapper;
 import Pegas.mapper.ReadNoteMapper;
 import Pegas.repository.NoteRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+
+import static Pegas.entity.QNote.note;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +30,18 @@ public class NoteServiceImpl implements NoteService{
     @Override
     public List<ReadNoteDto> getAllNotes() {
         return noteRepository.findAll().stream()
+                .map(readNoteMapper::map)
+                .toList();
+    }
+
+    @Override
+    public List<ReadNoteDto> getAllNotes(FilterNoteDto filterNoteDto, Pageable pageable) {
+        var predicate = QPredicateNote.builder()
+                .add(filterNoteDto.getTitle(), note.title::containsIgnoreCase)
+                .add(filterNoteDto.getCreatedAt(), note.createdAt::before)
+                .add(filterNoteDto.getUpdateAt(), note.updateAt::before)
+                .build();
+        return noteRepository.findAll(predicate, pageable).stream()
                 .map(readNoteMapper::map)
                 .toList();
     }

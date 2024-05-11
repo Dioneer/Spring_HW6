@@ -13,7 +13,7 @@ public class CreateUpdateNoteMapper implements Mapper<CreateUpdateNoteDto, Note>
     public Note map(CreateUpdateNoteDto create) {
         return Note.builder()
                 .title(create.getTitle())
-                .info(create.getBody())
+                .info(create.getInfo())
                 .createdAt(create.getCreatedAt())
                 .updateAt(create.getUpdateAt())
                 .build();
@@ -22,7 +22,7 @@ public class CreateUpdateNoteMapper implements Mapper<CreateUpdateNoteDto, Note>
     @Override
     public Note map(CreateUpdateNoteDto update, Note note) {
         note.setTitle(update.getTitle());
-        note.setInfo(update.getBody());
+        note.setInfo(update.getInfo());
         note.setCreatedAt(note.getCreatedAt());
         note.setUpdateAt(LocalDateTime.parse(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))));
         return note;
