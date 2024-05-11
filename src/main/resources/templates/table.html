@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>table</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>STATUS</th>
+    <th>SPECIES</th>
+    <th>TYPE</th>
+    <th>GENDER</th>
+    <th>IMAGE</th>
+    <th>URL</th>
+    <th>CREATED</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="character : ${characters}">
+    <td  th:text="${character.id}"></td>
+    <td><a th:href="@{'/images/' + ${character.id}}" th:text="|${character.name}|"></a></td>
+    <td  th:text="${character.status}"></td>
+    <td  th:text="${character.species}"></td>
+    <td  th:text="${character.type}"></td>
+    <td  th:text="${character.gender}"></td>
+    <td><img th:src="${character.image}" width="100"></td>
+    <td><a th:href="@{${character.url}}" th:text="|${character.url}|"></a></td>
+    <td  th:text="${character.created}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>table</title>
+</head>
+<body>
+        <div  th:text="|ID - ${character.id}|"></div>
+        <div><a th:href="@{'/images/' + ${character.id}}" th:text="|NAME -  ${character.name}|"></a></div>
+        <div  th:text="|STATUS - ${character.status}|"></div>
+        <div th:text="|SPECIES - ${character.species}|"></div>
+        <div  th:text="|TYPE - ${character.type}|"></div>
+        <div  th:text="|GENDER - ${character.gender}|"></div>
+        <div><img th:src="${character.image}" width="100"></div>
+        <div><a th:href="@{${character.url}}" th:text="|URL - ${character.url}|"></a></div>
+        <div  th:text="|CREATED - ${character.created}|"></div>
+
+</body>
+</html>
