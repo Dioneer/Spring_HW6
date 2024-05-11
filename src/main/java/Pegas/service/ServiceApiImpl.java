@@ -22,18 +22,20 @@ public class ServiceApiImpl implements ServiceApi{
     @Value("${app.image.api}")
     private String CHARACTER_API;
     @Override
-    public Characters getAllCharacters() {
+    public Characters getAllCharacters(String CHARACTER_API) {
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<>(headers);
-        ResponseEntity<Characters> responce = template.exchange(CHARACTER_API, HttpMethod.GET,entity, Characters.class);
+        ResponseEntity<Characters> response = template.exchange(CHARACTER_API, HttpMethod.GET,entity, Characters.class);
 
-        return responce.getBody();
+        return response.getBody();
     }
     public Result getCharacterById(String CHARACTER_API) {
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<>(headers);
-        ResponseEntity<Result> responce = template.exchange(CHARACTER_API, HttpMethod.GET,entity, Result.class);
+        ResponseEntity<Result> response = template.exchange(CHARACTER_API, HttpMethod.GET,entity, Result.class);
 
-        return responce.getBody();
+        return response.getBody();
     }
+
+
 }
